@@ -22,7 +22,7 @@
             transition: all 0.5s ease;
         }
 
-        /* Звездное небо с МЕДЛЕННЫМ движением */
+        /* Звездное небо в 2 РАЗА МЕДЛЕННЕЕ */
         .stars-container {
             position: fixed;
             top: 0;
@@ -37,25 +37,25 @@
             position: absolute;
             background: white;
             border-radius: 50%;
-            animation: starMove 100s linear infinite;
+            animation: starMove 200s linear infinite; /* В 2 раза медленнее */
         }
 
         .star.small {
             width: 1px;
             height: 1px;
-            animation: starMove 125s linear infinite, twinkle 4s infinite;
+            animation: starMove 250s linear infinite, twinkle 4s infinite;
         }
 
         .star.medium {
             width: 2px;
             height: 2px;
-            animation: starMove 100s linear infinite, twinkle 6s infinite;
+            animation: starMove 200s linear infinite, twinkle 6s infinite;
         }
 
         .star.large {
             width: 3px;
             height: 3px;
-            animation: starMove 75s linear infinite, twinkle 8s infinite;
+            animation: starMove 150s linear infinite, twinkle 8s infinite;
         }
 
         @keyframes starMove {
@@ -72,7 +72,7 @@
             50% { opacity: 1; }
         }
 
-        /* КОМЕТЫ С ХВОСТАМИ СЗАДИ И В 5 РАЗ БЫСТРЕЕ */
+        /* КОМЕТЫ С ХВОСТАМИ СЗАДИ - ПРАВИЛЬНО */
         .comet {
             position: absolute;
             width: 8px;
@@ -84,34 +84,32 @@
             z-index: 1;
         }
 
-        /* Хвост СЗАДИ кометы */
+        /* ХВОСТ СЗАДИ - правильное направление */
         .comet::before {
             content: '';
             position: absolute;
             top: 50%;
-            left: -200px; /* Хвост СЗАДИ (слева от ядра) */
-            width: 200px;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), #ffffff);
+            left: -150px; /* Хвост СЗАДИ от направления движения */
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(to left, #ffffff, rgba(255,255,255,0.7), transparent);
             transform: translateY(-50%);
-            filter: blur(3px);
-            border-radius: 2px;
+            filter: blur(2px);
         }
 
         .comet::after {
             content: '';
             position: absolute;
             top: 50%;
-            left: -400px; /* Длинный хвост СЗАДИ */
-            width: 400px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), rgba(255,255,255,0.8));
+            left: -300px; /* Длинный хвост СЗАДИ */
+            width: 300px;
+            height: 1px;
+            background: linear-gradient(to left, rgba(255,255,255,0.5), rgba(255,255,255,0.2), transparent);
             transform: translateY(-50%);
-            filter: blur(4px);
-            border-radius: 1px;
+            filter: blur(3px);
         }
 
-        /* АНИМАЦИИ КОМЕТ В 5 РАЗ БЫСТРЕЕ */
+        /* АНИМАЦИИ КОМЕТ - ХВОСТ ВСЕГДА СЗАДИ */
         @keyframes cometRight {
             0% {
                 transform: translateX(-100px) translateY(100vh);
@@ -180,41 +178,7 @@
             }
         }
 
-        @keyframes cometDiagonalRight {
-            0% {
-                transform: translateX(-150px) translateY(150px) rotate(-30deg);
-                opacity: 0;
-            }
-            5% {
-                opacity: 1;
-            }
-            95% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateX(100vw) translateY(80vh) rotate(-30deg);
-                opacity: 0;
-            }
-        }
-
-        @keyframes cometDiagonalLeft {
-            0% {
-                transform: translateX(110vw) translateY(150px) rotate(210deg);
-                opacity: 0;
-            }
-            5% {
-                opacity: 1;
-            }
-            95% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateX(-150px) translateY(80vh) rotate(210deg);
-                opacity: 0;
-            }
-        }
-
-        /* Остальные стили остаются без изменений */
+        /* Остальные стили без изменений */
         .light-theme {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             color: #333;
@@ -228,7 +192,6 @@
             color: #333;
         }
 
-        /* Анимированные прогресс-бары */
         .skill-bars {
             margin-top: 30px;
         }
@@ -297,7 +260,6 @@
             }
         }
 
-        /* Эффект свечения */
         .skill-level::after {
             content: '';
             position: absolute;
@@ -318,7 +280,6 @@
             100% { transform: translateX(100%); }
         }
 
-        /* Кнопки управления */
         .theme-toggle, .music-toggle, .music-prev, .music-next {
             position: fixed;
             right: 20px;
@@ -363,7 +324,6 @@
             color: #333;
         }
 
-        /* Индикатор музыки */
         .music-info {
             position: fixed;
             top: 320px;
@@ -383,7 +343,6 @@
             color: #333;
         }
 
-        /* Уведомление о копировании */
         .copy-notification {
             position: fixed;
             top: 50%;
@@ -410,7 +369,6 @@
             color: #333;
         }
 
-        /* Анимации */
         @keyframes slideFromTop {
             from {
                 opacity: 0;
@@ -466,7 +424,6 @@
             }
         }
 
-        /* Навигационное меню */
         .navbar {
             background: rgba(255,255,255,0.1);
             padding: 1rem 0;
@@ -530,7 +487,6 @@
             color: #333;
         }
 
-        /* Мобильное меню */
         .menu-toggle {
             display: none;
             background: none;
@@ -540,7 +496,6 @@
             cursor: pointer;
         }
 
-        /* Основной контент */
         .container {
             max-width: 1200px;
             margin: 80px auto 0;
@@ -585,7 +540,6 @@
             animation: slideFromLeft 0.8s ease-out 0.2s both;
         }
 
-        /* Интерактивные карточки навыков */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -614,7 +568,6 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
 
-        /* Галерея проектов */
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -636,7 +589,6 @@
             transform: scale(1.05);
         }
 
-        /* Счетчики */
         .counter {
             font-size: 3em;
             font-weight: bold;
@@ -644,7 +596,6 @@
             margin: 20px 0;
         }
 
-        /* Контакты */
         .contact-info p {
             margin: 10px 0;
             padding: 10px;
@@ -657,7 +608,6 @@
         .contact-info p:nth-child(2) { animation-delay: 0.5s; }
         .contact-info p:nth-child(3) { animation-delay: 0.7s; }
 
-        /* Активная почта */
         .email-link {
             color: #ffd700;
             text-decoration: none;
@@ -679,7 +629,6 @@
             color: #ff3366;
         }
 
-        /* Подсказка для почты */
         .email-link::after {
             content: '📋 Нажмите чтобы скопировать';
             position: absolute;
@@ -706,7 +655,6 @@
             color: #333;
         }
 
-        /* Сердечко над заголовком */
         .center-heart {
             position: absolute;
             top: 15%;
@@ -739,7 +687,6 @@
             }
         }
 
-        /* Адаптивность */
         @media (max-width: 768px) {
             .menu-toggle {
                 display: block;
@@ -945,19 +892,19 @@
 
                 star.style.left = Math.random() * 100 + 'vw';
                 star.style.top = Math.random() * 100 + 'vh';
-                star.style.animationDelay = Math.random() * 100 + 's';
+                star.style.animationDelay = Math.random() * 200 + 's'; // Увеличена задержка для медленного движения
                 
                 container.appendChild(star);
             }
 
-            // Создаем кометы
+            // Создаем начальные кометы
             createComet(0);
-            createComet(1000);
-            createComet(2000);
+            createComet(10000); // В 20 раз реже
 
+            // Кометы появляются в 20 раз реже - каждые 30 секунд
             setInterval(() => {
                 createComet(0);
-            }, 1500); // Чаще создаем кометы
+            }, 30000); // 30 секунд вместо 1.5 секунд
         }
 
         // Создание кометы
@@ -966,10 +913,10 @@
             const comet = document.createElement('div');
             comet.className = 'comet';
             
-            const animations = ['cometRight', 'cometLeft', 'cometDownRight', 'cometDownLeft', 'cometDiagonalRight', 'cometDiagonalLeft'];
+            const animations = ['cometRight', 'cometLeft', 'cometDownRight', 'cometDownLeft'];
             const randomAnim = animations[Math.floor(Math.random() * animations.length)];
             
-            // Анимация в 5 раз быстрее - 0.4-0.8 секунды
+            // Быстрая анимация - 0.4-0.8 секунды
             const duration = 0.4 + Math.random() * 0.4;
             comet.style.animation = `${randomAnim} ${duration}s linear ${delay}ms`;
             
@@ -989,7 +936,6 @@
             navigator.clipboard.writeText(email).then(() => {
                 showCopyNotification();
             }).catch(() => {
-                // Fallback для старых браузеров
                 const textarea = document.createElement('textarea');
                 textarea.value = email;
                 document.body.appendChild(textarea);
