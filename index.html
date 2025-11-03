@@ -36,7 +36,7 @@
             color: #333;
         }
 
-        /* Компактные кнопки */
+        /* Компактные кнопки - ПОДВИНУТЫ ВЫШЕ */
         .theme-toggle, .music-toggle, .music-prev, .music-next {
             position: fixed;
             right: 20px;
@@ -81,7 +81,7 @@
             color: #333;
         }
 
-        /* Индикатор текущей музыки */
+        /* Индикатор текущей музыки - ПОДВИНУТ ВЫШЕ */
         .music-info {
             position: fixed;
             top: 220px;
@@ -386,6 +386,7 @@
 
         .contact-info p:nth-child(1) { animation-delay: 0.3s; }
         .contact-info p:nth-child(2) { animation-delay: 0.5s; }
+        .contact-info p:nth-child(3) { animation-delay: 0.7s; }
 
         /* Тусклые радужные элементы */
         .floating-element {
@@ -503,6 +504,11 @@
             .music-toggle, .music-prev, .music-next, .music-info {
                 display: none;
             }
+        }
+
+        /* Дополнительный отступ для контактов */
+        #contact {
+            padding-bottom: 60px;
         }
     </style>
 </head>
@@ -638,7 +644,7 @@
         <section id="contact" class="section">
             <h2>📞 Контакты</h2>
             <div class="contact-info">
-                <p>📧 Email: yavechnomolodoy@example.com</p>
+                <p>📧 Email: yavechnomolodoy@gmail.com</p>
                 <p>🐱 GitHub: yavechnomolodoy</p>
                 <p>💼 Портфолио: этот сайт</p>
             </div>
