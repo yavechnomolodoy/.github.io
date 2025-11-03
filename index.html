@@ -193,7 +193,7 @@
             100% { transform: translateX(100%); }
         }
 
-        /* Компактные кнопки - ОПУЩЕНЫ НИЖЕ */
+        /* Компактные кнопки */
         .theme-toggle, .music-toggle, .music-prev, .music-next {
             position: fixed;
             right: 20px;
@@ -215,19 +215,19 @@
         }
 
         .theme-toggle {
-            top: 120px; /* Опущена ниже */
+            top: 120px;
         }
 
         .music-toggle {
-            top: 170px; /* Опущена ниже */
+            top: 170px;
         }
 
         .music-prev {
-            top: 220px; /* Опущена ниже */
+            top: 220px;
         }
 
         .music-next {
-            top: 270px; /* Опущена ниже */
+            top: 270px;
         }
 
         .light-theme .theme-toggle, 
@@ -238,10 +238,10 @@
             color: #333;
         }
 
-        /* Индикатор текущей музыки - ОПУЩЕН НИЖЕ */
+        /* Индикатор текущей музыки */
         .music-info {
             position: fixed;
-            top: 320px; /* Опущен ниже */
+            top: 320px;
             right: 20px;
             background: rgba(255,255,255,0.2);
             padding: 8px 12px;
@@ -730,7 +730,7 @@
     <!-- Уведомление о копировании -->
     <div class="copy-notification" id="copyNotification">📧 Email скопирован!</div>
 
-    <!-- Кнопки управления - ОПУЩЕНЫ НИЖЕ -->
+    <!-- Кнопки управления -->
     <button class="theme-toggle" id="themeToggle" title="Сменить тему">🌙</button>
     <button class="music-toggle" id="musicToggle" title="Включить музыку">🎵</button>
     <button class="music-prev" id="musicPrev" title="Предыдущий трек">⏮</button>
@@ -932,25 +932,19 @@
             textarea.value = email;
             document.body.appendChild(textarea);
             textarea.select();
-            textarea.setSelectionRange(0, 99999); // Для мобильных устройств
+            textarea.setSelectionRange(0, 99999);
             
             try {
-                // Пытаемся скопировать
                 const successful = document.execCommand('copy');
                 if (successful) {
                     showCopyNotification();
                 }
             } catch (err) {
-                console.log('Не удалось скопировать email: ', err);
-                // Альтернативный способ через Clipboard API
                 navigator.clipboard.writeText(email).then(() => {
                     showCopyNotification();
-                }).catch(err => {
-                    console.log('Clipboard API не поддерживается: ', err);
                 });
             }
             
-            // Убираем временный элемент
             document.body.removeChild(textarea);
         }
 
@@ -983,7 +977,6 @@
             }
         ];
 
-        // Глобальные переменные для музыки
         let currentTrackIndex = 0;
         let music = null;
         let isPlaying = false;
@@ -1016,7 +1009,6 @@
             music = new Audio(musicTracks[currentTrackIndex].url);
             music.loop = true;
             
-            // Обновляем информацию о треке
             document.getElementById('musicInfo').textContent = musicTracks[currentTrackIndex].name;
             
             if (isPlaying) {
@@ -1039,7 +1031,6 @@
                 isPlaying = false;
             } else {
                 music.play().catch(e => {
-                    console.log('Автовоспроизведение заблокировано');
                     document.getElementById('musicInfo').textContent = 'Нажмите для воспроизведения';
                 });
                 document.getElementById('musicToggle').textContent = '⏸';
@@ -1053,7 +1044,7 @@
             currentTrackIndex = (currentTrackIndex + 1) % musicTracks.length;
             loadTrack(currentTrackIndex);
             if (isPlaying) {
-                music.play().catch(e => console.log('Автовоспроизведение заблокировано'));
+                music.play();
             }
         }
 
@@ -1061,7 +1052,7 @@
             currentTrackIndex = (currentTrackIndex - 1 + musicTracks.length) % musicTracks.length;
             loadTrack(currentTrackIndex);
             if (isPlaying) {
-                music.play().catch(e => console.log('Автовоспроизведение заблокировано'));
+                music.play();
             }
         }
 
@@ -1113,4 +1104,32 @@
             });
         });
 
-        //
+        // Анимация прогресс-баров
+        function animateProgressBars() {
+            document.querySelectorAll('.skill-level').forEach(bar => {
+                const width = bar.getAttribute('data-width');
+                bar.style.width = width + '%';
+            });
+        }
+
+        // Анимация счетчиков
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const increment = target / 100;
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.textContent = Math.ceil(current);
+                        setTimeout(updateCounter, 20);
+                    }
+                };
+                updateCounter();
+            });
+        }
+    </script>
+</body>
+</html>
