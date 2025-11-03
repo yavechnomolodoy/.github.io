@@ -72,65 +72,149 @@
             50% { opacity: 1; }
         }
 
-        /* Кометы с ДЛИННЫМИ ХВОСТАМИ */
+        /* КОМЕТЫ С ХВОСТАМИ СЗАДИ И В 5 РАЗ БЫСТРЕЕ */
         .comet {
             position: absolute;
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
             background: #ffffff;
             border-radius: 50%;
             opacity: 0;
-            filter: blur(0.5px);
+            filter: blur(1px);
             z-index: 1;
         }
 
+        /* Хвост СЗАДИ кометы */
         .comet::before {
             content: '';
             position: absolute;
             top: 50%;
-            right: -240px;
-            width: 240px;
-            height: 3px;
-            background: linear-gradient(90deg, #ffffff, rgba(255,255,255,0.7), transparent);
+            left: -200px; /* Хвост СЗАДИ (слева от ядра) */
+            width: 200px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), #ffffff);
             transform: translateY(-50%);
-            filter: blur(2px);
+            filter: blur(3px);
+            border-radius: 2px;
         }
 
         .comet::after {
             content: '';
             position: absolute;
             top: 50%;
-            right: -450px;
-            width: 450px;
-            height: 1px;
-            background: linear-gradient(90deg, rgba(255,255,255,0.5), rgba(255,255,255,0.2), transparent);
+            left: -400px; /* Длинный хвост СЗАДИ */
+            width: 400px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), rgba(255,255,255,0.8));
             transform: translateY(-50%);
-            filter: blur(3px);
+            filter: blur(4px);
+            border-radius: 1px;
         }
 
-        /* Базовые анимации комет */
-        @keyframes comet1 {
-            0% { transform: translateX(-100px) translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateX(100vw) translateY(-100px) rotate(0deg); opacity: 0; }
+        /* АНИМАЦИИ КОМЕТ В 5 РАЗ БЫСТРЕЕ */
+        @keyframes cometRight {
+            0% {
+                transform: translateX(-100px) translateY(100vh);
+                opacity: 0;
+            }
+            5% {
+                opacity: 1;
+            }
+            95% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100vw) translateY(-100px);
+                opacity: 0;
+            }
         }
 
-        @keyframes comet2 {
-            0% { transform: translateX(100vw) translateY(100vh) rotate(180deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateX(-100px) translateY(-100px) rotate(180deg); opacity: 0; }
+        @keyframes cometLeft {
+            0% {
+                transform: translateX(100vw) translateY(100vh) rotate(180deg);
+                opacity: 0;
+            }
+            5% {
+                opacity: 1;
+            }
+            95% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-100px) translateY(-100px) rotate(180deg);
+                opacity: 0;
+            }
         }
 
-        @keyframes comet3 {
-            0% { transform: translateX(-200px) translateY(-100px) rotate(-45deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateX(100vw) translateY(100vh) rotate(-45deg); opacity: 0; }
+        @keyframes cometDownRight {
+            0% {
+                transform: translateX(-200px) translateY(-100px) rotate(-45deg);
+                opacity: 0;
+            }
+            5% {
+                opacity: 1;
+            }
+            95% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100vw) translateY(100vh) rotate(-45deg);
+                opacity: 0;
+            }
         }
 
-        /* Тёмная/светлая тема */
+        @keyframes cometDownLeft {
+            0% {
+                transform: translateX(120vw) translateY(-100px) rotate(225deg);
+                opacity: 0;
+            }
+            5% {
+                opacity: 1;
+            }
+            95% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-200px) translateY(100vh) rotate(225deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes cometDiagonalRight {
+            0% {
+                transform: translateX(-150px) translateY(150px) rotate(-30deg);
+                opacity: 0;
+            }
+            5% {
+                opacity: 1;
+            }
+            95% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100vw) translateY(80vh) rotate(-30deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes cometDiagonalLeft {
+            0% {
+                transform: translateX(110vw) translateY(150px) rotate(210deg);
+                opacity: 0;
+            }
+            5% {
+                opacity: 1;
+            }
+            95% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-150px) translateY(80vh) rotate(210deg);
+                opacity: 0;
+            }
+        }
+
+        /* Остальные стили остаются без изменений */
         .light-theme {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             color: #333;
@@ -868,12 +952,12 @@
 
             // Создаем кометы
             createComet(0);
+            createComet(1000);
             createComet(2000);
-            createComet(4000);
 
             setInterval(() => {
                 createComet(0);
-            }, 3000);
+            }, 1500); // Чаще создаем кометы
         }
 
         // Создание кометы
@@ -882,11 +966,11 @@
             const comet = document.createElement('div');
             comet.className = 'comet';
             
-            const animations = ['comet1', 'comet2', 'comet3'];
+            const animations = ['cometRight', 'cometLeft', 'cometDownRight', 'cometDownLeft', 'cometDiagonalRight', 'cometDiagonalLeft'];
             const randomAnim = animations[Math.floor(Math.random() * animations.length)];
             
-            // Быстрая анимация - 1-2 секунды
-            const duration = 1 + Math.random();
+            // Анимация в 5 раз быстрее - 0.4-0.8 секунды
+            const duration = 0.4 + Math.random() * 0.4;
             comet.style.animation = `${randomAnim} ${duration}s linear ${delay}ms`;
             
             container.appendChild(comet);
