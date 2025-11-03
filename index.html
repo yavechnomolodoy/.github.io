@@ -102,6 +102,97 @@
             color: #333;
         }
 
+        /* Анимированные прогресс-бары */
+        .skill-bars {
+            margin-top: 30px;
+        }
+
+        .skill-bar {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .skill-progress {
+            background: rgba(255,255,255,0.2);
+            height: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .skill-level {
+            height: 100%;
+            border-radius: 10px;
+            position: relative;
+            width: 0%;
+            transition: width 2s ease;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        /* Анимация пульсации для разных навыков */
+        .skill-level.html-css {
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            animation-delay: 0s;
+        }
+
+        .skill-level.javascript {
+            background: linear-gradient(90deg, #f44336, #FF9800);
+            animation-delay: 0.5s;
+        }
+
+        .skill-level.git {
+            background: linear-gradient(90deg, #2196F3, #03A9F4);
+            animation-delay: 1s;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scaleX(1);
+                box-shadow: 0 0 10px currentColor;
+            }
+            25% {
+                transform: scaleX(1.02);
+                box-shadow: 0 0 15px currentColor;
+            }
+            50% {
+                transform: scaleX(0.98);
+                box-shadow: 0 0 20px currentColor;
+            }
+            75% {
+                transform: scaleX(1.01);
+                box-shadow: 0 0 15px currentColor;
+            }
+        }
+
+        /* Эффект свечения */
+        .skill-level::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255,255,255,0.3), 
+                transparent);
+            border-radius: 10px;
+            animation: shine 2s ease-in-out infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
         /* Компактные кнопки - ОПУЩЕНЫ НИЖЕ */
         .theme-toggle, .music-toggle, .music-prev, .music-next {
             position: fixed;
@@ -398,36 +489,6 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
 
-        /* Прогресс-бары */
-        .skill-bars {
-            margin-top: 30px;
-        }
-
-        .skill-bar {
-            margin-bottom: 20px;
-        }
-
-        .skill-name {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-        }
-
-        .skill-progress {
-            background: rgba(255,255,255,0.2);
-            height: 10px;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
-        .skill-level {
-            height: 100%;
-            background: linear-gradient(90deg, #ff3366, #ff6b6b);
-            border-radius: 5px;
-            transition: width 2s ease;
-            width: 0%;
-        }
-
         /* Галерея проектов */
         .gallery {
             display: grid;
@@ -641,6 +702,11 @@
             .email-link::after {
                 display: none;
             }
+
+            /* Адаптация прогресс-баров для мобильных */
+            .skill-progress {
+                height: 15px;
+            }
         }
 
         /* Дополнительный отступ для контактов */
@@ -721,7 +787,7 @@
                         <span>90%</span>
                     </div>
                     <div class="skill-progress">
-                        <div class="skill-level" data-width="90"></div>
+                        <div class="skill-level html-css" data-width="90"></div>
                     </div>
                 </div>
                 <div class="skill-bar">
@@ -730,7 +796,7 @@
                         <span>70%</span>
                     </div>
                     <div class="skill-progress">
-                        <div class="skill-level" data-width="70"></div>
+                        <div class="skill-level javascript" data-width="70"></div>
                     </div>
                 </div>
                 <div class="skill-bar">
@@ -739,7 +805,7 @@
                         <span>85%</span>
                     </div>
                     <div class="skill-progress">
-                        <div class="skill-level" data-width="85"></div>
+                        <div class="skill-level git" data-width="85"></div>
                     </div>
                 </div>
             </div>
@@ -1047,32 +1113,4 @@
             });
         });
 
-        // Анимация прогресс-баров
-        function animateProgressBars() {
-            document.querySelectorAll('.skill-level').forEach(bar => {
-                const width = bar.getAttribute('data-width');
-                bar.style.width = width + '%';
-            });
-        }
-
-        // Анимация счетчиков
-        function animateCounters() {
-            const counters = document.querySelectorAll('.counter');
-            counters.forEach(counter => {
-                const target = +counter.getAttribute('data-target');
-                const increment = target / 100;
-                let current = 0;
-                
-                const updateCounter = () => {
-                    if (current < target) {
-                        current += increment;
-                        counter.textContent = Math.ceil(current);
-                        setTimeout(updateCounter, 20);
-                    }
-                };
-                updateCounter();
-            });
-        }
-    </script>
-</body>
-</html>
+        //
