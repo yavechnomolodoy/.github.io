@@ -16,9 +16,66 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* Навигационное меню */
+        /* Анимации */
+        @keyframes slideFromTop {
+            from {
+                opacity: 0;
+                transform: translateY(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideFromLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideFromRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideFromBottom {
+            from {
+                opacity: 0;
+                transform: translateY(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Навигационное меню - выплывает сверху */
         .navbar {
             background: rgba(255,255,255,0.1);
             padding: 1rem 0;
@@ -27,6 +84,7 @@
             width: 100%;
             top: 0;
             z-index: 1000;
+            animation: slideFromTop 1s ease-out;
         }
 
         .nav-container {
@@ -41,12 +99,14 @@
         .logo {
             font-size: 1.5em;
             font-weight: bold;
+            animation: slideFromLeft 1s ease-out 0.2s both;
         }
 
         .nav-links {
             display: flex;
             list-style: none;
             gap: 2rem;
+            animation: slideFromRight 1s ease-out 0.2s both;
         }
 
         .nav-links a {
@@ -75,6 +135,12 @@
             font-size: 3em;
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: slideFromTop 1s ease-out 0.4s both;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            animation: slideFromBottom 1s ease-out 0.6s both;
         }
 
         .section {
@@ -83,6 +149,19 @@
             border-radius: 15px;
             backdrop-filter: blur(10px);
             margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section h2 {
+            margin-bottom: 20px;
+            animation: slideFromLeft 0.8s ease-out 0.2s both;
         }
 
         .skills-grid {
@@ -97,10 +176,70 @@
             padding: 20px;
             border-radius: 10px;
             text-align: center;
+            transition: transform 0.3s ease;
+            animation: scaleIn 0.6s ease-out both;
+        }
+
+        .skill-card:nth-child(1) { animation-delay: 0.3s; }
+        .skill-card:nth-child(2) { animation-delay: 0.5s; }
+        .skill-card:nth-child(3) { animation-delay: 0.7s; }
+        .skill-card:nth-child(4) { animation-delay: 0.9s; }
+
+        .skill-card:hover {
+            transform: scale(1.05);
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Контакты - выплывают по очереди */
+        .contact-info p {
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+            animation: slideFromRight 0.8s ease-out both;
+        }
+
+        .contact-info p:nth-child(1) { animation-delay: 0.3s; }
+        .contact-info p:nth-child(2) { animation-delay: 0.5s; }
+
+        /* Дополнительные элементы */
+        .floating-element {
+            position: absolute;
+            font-size: 2em;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .element-1 {
+            top: 20%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .element-2 {
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .element-3 {
+            bottom: 20%;
+            left: 15%;
+            animation-delay: 4s;
         }
     </style>
 </head>
 <body>
+    <!-- Плавающие элементы фона -->
+    <div class="floating-element element-1">⚡</div>
+    <div class="floating-element element-2">🚀</div>
+    <div class="floating-element element-3">💻</div>
+
     <!-- Навигационное меню -->
     <nav class="navbar">
         <div class="nav-container">
@@ -123,14 +262,17 @@
 
         <section id="about" class="section">
             <h2>🤝 Обо мне</h2>
-            <p>Я только начинаю свой путь в веб-разработке, но уже умею создавать сайты и размещать их в интернете!</p>
+            <p>Привет! Я увлекаюсь веб-разработкой и постоянно учусь новому. Этот сайт - мой первый проект, размещённый в интернете!</p>
+            <p style="animation: slideFromRight 0.8s ease-out 0.4s both; margin-top: 15px;">
+                Каждый день я изучаю что-то новое и совершенствую свои навыки.
+            </p>
         </section>
 
         <section id="skills" class="section">
             <h2>💪 Мои навыки</h2>
             <div class="skills-grid">
-                <div class="skill-card">HTML</div>
-                <div class="skill-card">CSS</div>
+                <div class="skill-card">HTML5</div>
+                <div class="skill-card">CSS3</div>
                 <div class="skill-card">GitHub</div>
                 <div class="skill-card">GitHub Pages</div>
             </div>
@@ -138,9 +280,46 @@
 
         <section id="contact" class="section">
             <h2>📞 Контакты</h2>
-            <p>Email: yavechnomolodoy@example.com</p>
-            <p>GitHub: yavechnomolodoy</p>
+            <div class="contact-info">
+                <p>📧 Email: yavechnomolodoy@example.com</p>
+                <p>🐱 GitHub: yavechnomolodoy</p>
+            </div>
         </section>
     </div>
+
+    <script>
+        // Анимация появления секций при прокрутке
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Плавная прокрутка для меню
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
